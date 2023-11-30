@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.title {
+  font-size: 64px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  font-style: italic;
+
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  & > img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    object-fit: contain;
+  }
+  && > button {
+    width: 70%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0c040;
+    cursor: pointer;
+    &:hover {
+      background-color: #f0a040;
+    }
+  }
+}
+
+.basketList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.basketItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.basketItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  & > img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+  }
+  & > button {
+    width: 70%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0c040;
+    cursor: pointer;
+    &:hover {
+      background-color: #f0a040;
+    }
+  }
+}
