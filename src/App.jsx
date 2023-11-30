@@ -1,29 +1,55 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Products from './components/Products'
 import Basket from './components/Basket'
 import './App.css'
 
-
 function App() {
-  const [products, setProducts] = useState([])
-  const [basket, setBasket] = useState([])
-  const [filter, setFilter] = useState('')
+  const [products, setProductsList] = useState([]);
+  const [basket, setBasket] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [isLoadMore, setLoadMore] = useState(false);
+  const totalPages = useRef(0);
+  const currentPages = useRef(1);
+  const limit = 20;
+
   let productList = []
 
   useEffect(() => {
     async function fetchData() {
-      const fetchProducts = await fetch('https://dummyjson.com/products').then(r => r.json())
+      const fetchProducts = await fetch('https://dummyjson.com/products?limit=' + limit).then(r => r.json())
       productList = fetchProducts.products
       console.log(productList)
-      setProducts([...(productList)]);
-    }
+      setProductsList([...(productList)]);
 
+      totalPages.current = Math.ceil(fetchProducts.total / fetchProducts.limit);
+      console.log(totalPages.current = Math.ceil(fetchProducts.total / fetchProducts.limit))
+
+      if(totalPages.current > 1) {
+        setLoadMore(true);
+      }
+
+    }
 
     fetchData()
 
   }, []);
 
-  const handleFilterChance = (e) => {
+  async function HandleLoadMore() {
+
+    currentPages.current += 1;
+
+    if((currentPages.current + 1) > totalPages.current) {
+      setLoadMore(false);
+    }
+
+    const skip = (currentPages.current - 1) * limit;
+    const data = await fetch(`https://dummyjson.com/products?skip=${skip}&limit=${limit}`).then(r => r.json());
+    
+    setProductsList([...products, ...data.products]);
+
+  }
+
+  const handleFilterChange = (e) => {
     e.preventDefault()
     setFilter(e.target.value)
     console.log(e.target.value)
@@ -32,8 +58,6 @@ function App() {
   const filteredProducts = products.filter(product => {
     return product.title.toLowerCase().includes(filter.toLowerCase());
   });
-
-
 
   function addToBasket(product) {
     setBasket(function (prevBasket) {
@@ -53,7 +77,6 @@ function App() {
     });
   }
   
-
   function removeFromBasket(productId) {
     setBasket(prevBasket => {
       const foundItem = prevBasket.find(item => item.productId === productId);
@@ -68,11 +91,11 @@ function App() {
     });
   }
 
-
   return (
     <div className="container">
-      <Products products={products} addToBasket={addToBasket} filter={filter} handleFilterChange={handleFilterChance} filteredProducts={filteredProducts}/>
-      <Basket basket={basket} removeFromBasket={removeFromBasket}/> 
+      <Products products={products} addToBasket={addToBasket} filter={filter} handleFilterChange={handleFilterChange} filteredProducts={filteredProducts}/>
+      <Basket basket={basket} removeFromBasket={removeFromBasket}/>
+      {isLoadMore && <div className="showMore"><button onClick={HandleLoadMore}>Daha Fazla Yükle</button></div>}
     </div>
   )
 }

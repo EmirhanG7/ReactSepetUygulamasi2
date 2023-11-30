@@ -44,7 +44,7 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   & > img {
     width: 100%;
     max-width: 250px;
@@ -78,7 +78,7 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .basketItem {
@@ -90,7 +90,7 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   & > img {
     width: 100px;
     height: auto;
@@ -108,3 +108,21 @@ body {
     }
   }
 }
+
+.showMore {
+  text-align: center;
+  padding: 10px;
+  & button {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    width: 250px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0c040;
+    cursor: pointer;
+    &:hover {
+      background-color: #f0a040;
+    } 
+  }
+  
+}  
